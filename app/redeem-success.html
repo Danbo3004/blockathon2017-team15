@@ -9,7 +9,7 @@
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
-     
+
 </head>
 
 <body>
@@ -21,25 +21,38 @@
     </div>
     <div class="container" id="content">
         <div class="row main-container transaction-preview">
-            <div class="col-xs-12 mt20">
-                <i class="fa fa-hashtag" aria-hidden="true"></i>
-                &nbsp;Order No.:
-                <span class="pull-right">#65562</span>
+            <div class="col-xs-12 text-center">
+                <span class="congrat-brand-name">
+                    PizzaHut
+                </span><br>
+                <h4>Order #65562</h4>
             </div>
             <div class="col-xs-12 mt20">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                 &nbsp;Total: <span class="pull-right">$40</span>
+                &nbsp;Total:
+                <span class="pull-right">$100</span>
             </div>
             <div class="col-xs-12 mt20">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                 &nbsp;<span class="username">John Doe</span> will earn:
-                <span class="pull-right">40 EBT</span>
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                &nbsp;Pay with ETB:
+                <span class="pull-right">-40EBT</span>
+            </div>
+            <div class="col-xs-12 mt20">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                &nbsp;You've paid:
+                <span class="pull-right">$60</span>
             </div>
             <div class="clearfix"></div>
-            <hr class="divider">
-            <div class="action-container">
-                <div class="col-xs-8 col-xs-offset-2">
-                    <a href="javascript:;" class="btn btn-info btn-block" onclick="cashierConfirmReward();">Confirm</a>
+            <hr class="divider small">
+            <div class="congrat-message text-center">
+                You've used
+                <br>
+                <div class="ebt-earned">40 EBT</span>
+                </div>
+                <div class="action-container">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <a href="javascript:;" class="btn btn-info btn-block">Done</a>
+                    </div>
                 </div>
             </div>
         </div>

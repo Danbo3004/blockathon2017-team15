@@ -1,6 +1,5 @@
 // Import the page's CSS. Webpack will know what to do with it.
 import "../css/app.css";
-import "./auth.js";
 window.CONFIG = {};
 // Import libraries we need.
 import { default as Web3 } from 'web3';
@@ -23,6 +22,12 @@ window.displayAddress = function (text) {
 var updateBalance = function (balance) {
   $('#userBalance').text(balance);
   $('#userBalance').parent().removeClass('hide');
+}
+
+window.login = function () {
+  if ($('#passphrase').val() != '123123') {
+    return false;
+  }
 }
 
 window.createNewAccount = function () {
@@ -86,8 +91,7 @@ window.rewardToken = function () {
   try {
     Loyalty.deployed().then(function (instance) {
       instance.rewardToken(CONFIG.userAddress, 40, {from: CONFIG.retailerAddress }).then(function (rs) {
-        console.log('callbackReward');
-        console.log(rs);
+        window.location.href = "./earn-success.html";
       });
     });
   } catch (err) {
