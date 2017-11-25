@@ -1,5 +1,7 @@
 $(document).ready(function () {
-
+    if (!$('#loginpage').length) {
+        return;
+    }
     var isLogin = localStorage.getItem("isLogged");
     if (isLogin == null || isLogin == false) {
         $('#qrcodepage').hide();
@@ -19,7 +21,6 @@ $(document).ready(function () {
 
 
 window.login = function () {
-
     console.log($('#exampleInputEmail1').val());
     console.log($('#exampleInputPassword1').val());
 
