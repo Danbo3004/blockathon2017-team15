@@ -63,16 +63,17 @@ contract Loyalty {
     }
 
     //Redeem token
-    function redeemToken(address _addr, uint256 _numToken) onlyRetailer(msg.sender) payable public returns(bool) {
+    function redeemToken(address _addr, uint256 _numToken) onlyRetailer(msg.sender) public returns(bool) {
         if (balances[_addr] < _numToken) {
             return false;
         } 
 
-        balances[msg.sender] += _numToken;
-        balances[_addr] -= _numToken;
+        balances[msg.sender] = safeAdd(balances[msg.sender], _numToken);
+        balances[_addr] = safeSub(balances[_addr], _numToken);
 
         Transfer(0x0, _addr, balances[_addr]);
         Transfer(0x0, msg.sender, balances[msg.sender]);
+        // store info about this redeem
 
         return true;
     }

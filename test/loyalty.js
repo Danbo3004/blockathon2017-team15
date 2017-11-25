@@ -36,6 +36,16 @@ contract('Loyalty', function (accounts) {
                         })
                         .then((rs) => {
                             assert.equal(rs.toString(10), '100');
+
+                            // user redeem goods
+                            return instance.redeemToken.call(user1, 50, {from: retailer1})
+                        })
+                        .then((rs) => {
+                            assert.equal(rs, true);
+                            return instance.balanceOf.call(user1)
+                        })
+                        .then((rs) => {
+                            assert.equal(rs.toString(10), '50');
                         })
                 });
             
