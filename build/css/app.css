@@ -1,0 +1,145 @@
+#content {
+  margin: 20px 40px;  
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+input {
+  width: 500px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+button {
+  font-size: 16px;
+  padding: 5px;
+}
+
+h1, h2 {
+  vertical-align: middle;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+h2 {
+  color: #AAA;
+}
+
+h3 {
+  font-weight: normal;
+  color: #AAA;
+  font-size: 18px;
+}
+
+.black {
+  color: black;
+}
+
+#balance {
+  color: black;
+}
+
+.hint {
+  color: #666;
+}
+
+#address_image {
+  width: 85%;
+  margin: 0 auto;
+}
+
+#footer {
+  margin-top: 70px;
+}
+#logo {
+  padding-top: 55px;
+  margin: 0 auto;
+  vertical-align: middle;
+  width: 170px;
+  height: 170px;
+  font-size: 26px;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 100%;
+  word-wrap: break-word;
+}
+
+.main-container, #qrcodepage {
+  padding: 20px 20px;
+  border: 1px solid #000;
+  font-size: 1.67rem;
+}
+
+.qrcode-desc {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#header {
+  position: relative;
+  padding: 10px 30px 5px 50px;
+  background: #2b96ec;
+  color: #fff;
+}
+
+#header a, #header span {
+  color: #fff;
+}
+
+.header-icon {
+  position: absolute;
+  top: 11px;
+  left: 10px;
+  font-size: 26px;
+}
+
+.divider {
+  margin: 30px 20px 70px 20px;
+  height: 1px;
+  background: #000;
+}
+.divider.small {
+  margin-bottom: 25px;
+}
+.mt20 {
+  margin-top: 20px;
+}
+
+.action-container {
+  padding-bottom: 30px;
+}
+
+.action-container .btn {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  background-color: #1f75b8
+}
+
+.congrat-brand-name {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.congrat-message .ebt-earned, .congrat-message {
+  font-size: 1.85rem;
+  color: #067f2d;
+}
+.congrat-message div.ebt-earned {
+  margin: 10px 0 20px 0;
+  font-size: 4.5rem;
+}
+
+.feature-btn {
+  font-size: 2rem;
+  padding: 15px 0;
+  margin: 30px 0;
+}
+
+.feature-btn.btn-redeem i {
+  font-size: 5rem;
+}
