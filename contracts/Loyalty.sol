@@ -62,6 +62,24 @@ contract Loyalty {
         return true;
     }
 
+    function transferToken(address _fromAddr, address _toAddr, uint256 _numToken) public returns (bool) {
+        _fromAddr = msg.sender;
+        if (balances[_fromAddr] < _numToken) {
+            return false;
+        }
+        // tru token trong tai khoan Sender
+        balances[_fromAddr] = safeSub(balances[_fromAddr], _numToken);
+        // cong token cho Receiver
+        balances[_toAddr] = safeAdd(balances[_toAddr], _numToken);
+        // luu thong tin mua hang - user address (optional)
+        
+        // Emit event
+        Transfer(0x0, _fromAddr, balances[_fromAddr]);
+         Transfer(0x0, _toAddr, balances[_toAddr]);
+
+        return true;
+    }
+
     //Redeem token
     function redeemToken(address _addr, uint256 _numToken) onlyRetailer(msg.sender) public returns(bool) {
         if (balances[_addr] < _numToken) {
