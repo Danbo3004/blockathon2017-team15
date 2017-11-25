@@ -3,7 +3,6 @@ import "../css/app.css";
 import "./auth.js";
 import CONFIG from "./config.js";
 
-
 // Import libraries we need.
 import { default as Web3 } from 'web3';
 import { default as contract } from 'truffle-contract'
@@ -22,6 +21,11 @@ window.displayAddress = function (text) {
   $('#address').html(text);
 }
 
+var updateBalance = function (balance) {
+  $('#userBalance').text(balance);
+  $('#userBalance').parent().removeClass('hide');
+}
+
 window.createNewAccount = function () {
   var wallet = Wallet.generate();
   console.log('0x' + wallet.getPrivateKey().toString('hex'));
@@ -33,10 +37,7 @@ window.createNewAccount = function () {
   localStorage.setItem("privateKey", wallet.getPrivateKey().toString('hex'));
 }
 
-var updateBalance = function(balance) {
-  $('#userBalance').text(balance);
-  $('#userBalance').parent().removeClass('hide');
-}
+
 
 window.sendTransaction = function (from, to, value) {
   let transactionObj = {
@@ -70,33 +71,6 @@ window.sendRawTransaction = function (_from, privateKey, _to, value) {
   })
 }
 
-window.voteForCandidate = function (candidate) {
-  // let candidateName = $("#candidate").val();
-  // try {
-  //   $("#msg").html("Vote has been submitted. The vote count will increment as soon as the vote is recorded on the blockchain. Please wait.")
-  //   $("#candidate").val("");
-  //   /* Voting.deployed() returns an instance of the contract. Every call
-  //    * in Truffle returns a promise which is why we have used then()
-  //    * everywhere we have a transaction call
-  //    */
-  //   Voting.deployed().then(function (contractInstance) {
-
-
-  //     contractInstance.voteForCandidate(candidateName, { gas: 140000, from: web3.eth.accounts[0] }).then(function () {
-  //       let div_id = candidates[candidateName];
-
-
-  //       return contractInstance.totalVotesFor.call(candidateName).then(function (v) {
-  //         $("#" + div_id).html(v.toString());
-  //         $("#msg").html("");
-  //       });
-  //     });
-  //   });
-  // } catch (err) {
-  //   console.log(err);
-  // }
-}
-
 $(document).ready(function () {
   if (typeof web3 !== 'undefined') {
     console.warn("Using web3 detected from external source like Metamask")
@@ -114,14 +88,8 @@ $(document).ready(function () {
   Loyalty.deployed().then(function (instance) {
     instance.balanceOf.call(CONFIG.userAddress)
     .then((rs) => {
-      console.log(rs);
       updateBalance(rs.toString());
     });
-  //     var address = localStorage.getItem("publicKey");
-  //       contractInstance.balanceOf.call(address).then(function (v) {
-  //         console.log(v.toString());
-
-  //       });
   })
 
   displayAddress(CONFIG.userAddress);

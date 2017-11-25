@@ -5,27 +5,39 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>User profile</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+     
 </head>
 
 <body>
-    <div class="container">
-        <h1>Your balance:
+    <div id="header">
+        <a href="./home.html">
+            <i class="fa fa-arrow-left header-icon" aria-hidden="true"></i>
+        </a>
+        <h1>Balance
             <span class="pull-right hide">$
                 <span id="userBalance"></span>
             </span>
         </h1>
-        <br/>
-        <br/>
-        <div class="row" id='qrcodepage' style="display:none">
+    </div>
+    <div class="container" id="content">
+        <div class="row" id="qrcodepage">
             <div class="form-horizontal">
-                <div id='address_image' class="text-center"></div>
+                <div id="address_image" class="text-center"></div>
             </div>
-            <div id="address" class="text-center"></div>
+            <div id="address" class="text-center hide"></div>
+            <div class="qrcode-desc">
+                <span id="earning-desc" class="">
+                    Let Cashier scan this QR Code <br>so you can earn 8Bit Coin
+                </span>
+            </div>
         </div>
+    </div>
+    <div id="footer" class="text-center">
+        <div id="logo">AWESOME LOGO</div>
     </div>
 </body>
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
