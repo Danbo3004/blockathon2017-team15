@@ -3,6 +3,7 @@ pragma solidity ^0.4.17;
 contract Loyalty {
 
     uint256 public totalSupply;
+    uint256 initialToken = 1000000;
     address owner;
     mapping (address => uint256) balances;
     mapping (address => bool) retailers;
@@ -15,6 +16,7 @@ contract Loyalty {
         // xac dinh owner
         owner = msg.sender;
     }
+    event Transfer(address indexed _from, address indexed _to, uint256 _amount);
 
     // check owner permission
     modifier onlyOwner(address _addr) {
@@ -28,24 +30,25 @@ contract Loyalty {
         _;
     }
 
-    function addRetailer(address _retailerAddress) onlyOwner(msg.sender) public {
+    function addRetailer(address _retailerAddress) onlyOwner(msg.sender) public returns (bool) {
         //_retailerAddress ko hop le
         if (_retailerAddress == address(0)) {
-            return;
+            return false;
         }
         // add retailer to white list
         retailers[_retailerAddress] = true;
         // issue token to retailer for them to give back to user
-        uint256 initialToken = 1000000;
         balances[_retailerAddress] += initialToken;
         totalSupply += initialToken;
+        
+        return true;
     }
 
-    function rewardToken(address _addr, uint8 _numToken) onlyRetailer(msg.sender) payable public {
+    function rewardToken(address _addr, uint256 _numToken) onlyRetailer(msg.sender) payable public returns (bool) {
         // check tai khoan gui co trong danh sach allowed chua
         // check balance cua tai khoan gui
         if (balances[msg.sender] < _numToken) {
-            return;
+            return false;
         }
         // tru token trong tai khoan retailer
         balances[msg.sender] -= _numToken;
@@ -53,8 +56,11 @@ contract Loyalty {
         balances[_addr] += _numToken;
         // luu thong tin mua hang - user address
         
+        
         // Emit event
-        // Transfer(0x0, msg.sender, amount);
+        Transfer(0x0, msg.sender, _numToken);
+
+        return true;
     }
 
     // Constant function that return token balance of an address

@@ -17,12 +17,7 @@ contract('Loyalty', function (accounts) {
                         })
                         .then((rs) => {
                             assert.equal(rs, true);
-                            // check not allow retailer
-                            return instance.isAllowedRetailer.call(retailer2);
-                        })
-                        .then((rs) => {
-                            assert.equal(rs, false);
-                            
+                     
                             // retailer issue token to user
                             return instance.rewardToken.call(user1, 100, { from: retailer1 })
                         })
@@ -30,9 +25,9 @@ contract('Loyalty', function (accounts) {
                             return instance.balanceOf.call(retailer1)
                         })
                         .then((rs) => {
-                            assert.equal(rs.toString(10), '9999900');
+                            assert.equal(rs.toString(10), '999900');
                             // check balance user1 = 100
-                            return instance.balanceOf.call(user1)
+                            return instance.balanceOf.call(user1);
                         })
                         .then((rs) => {
                             assert.equal(rs.toString(10), '100');
