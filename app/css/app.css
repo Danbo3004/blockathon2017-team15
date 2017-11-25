@@ -81,11 +81,18 @@ h3 {
 
 #header {
   position: relative;
-  padding: 10px 30px;
+  padding: 10px 30px 5px 50px;
   background: #2b96ec;
   color: #fff;
 }
 
 #header a, #header span {
   color: #fff;
+}
+
+.header-icon {
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  font-size: 26px;
 }

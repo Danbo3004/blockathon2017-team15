@@ -88,14 +88,8 @@ $(document).ready(function () {
   Loyalty.deployed().then(function (instance) {
     instance.balanceOf.call(CONFIG.userAddress)
     .then((rs) => {
-      console.log(rs);
       updateBalance(rs.toString());
     });
-  //     var address = localStorage.getItem("publicKey");
-  //       contractInstance.balanceOf.call(address).then(function (v) {
-  //         console.log(v.toString());
-
-  //       });
   })
 
   displayAddress(CONFIG.userAddress);
