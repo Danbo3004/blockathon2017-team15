@@ -1,6 +1,7 @@
 // Import the page's CSS. Webpack will know what to do with it.
-import "../stylesheets/app.css";
+import "../css/app.css";
 import "./auth.js";
+import CONFIG from "./config.js";
 
 
 // Import libraries we need.
@@ -15,30 +16,26 @@ import QR from 'qr-image'
 import loyalty_artifacts from '../../build/contracts/Loyalty.json'
 var Loyalty = contract(loyalty_artifacts);
 
-window.getqr = function (text) {
+window.displayAddress = function (text) {
   var svg_string = QR.imageSync(text, { type: 'svg' });
   $('#address_image').html(svg_string);
+  $('#address').html(text);
 }
 
 window.createNewAccount = function () {
-  var wallet = Wallet.generate()
+  var wallet = Wallet.generate();
   console.log('0x' + wallet.getPrivateKey().toString('hex'));
   console.log('0x' + wallet.getAddress().toString('hex'));
   $('#publicKey').val(wallet.getAddress().toString('hex'));
   $('#privateKey').val(wallet.getPrivateKey().toString('hex'));
-  getqr(wallet.getAddress().toString('hex'));
-
+ 
   localStorage.setItem("publicKey", wallet.getAddress().toString('hex'));
   localStorage.setItem("privateKey", wallet.getPrivateKey().toString('hex'));
-
-
 }
 
-window.getBalance = function (address) {
-  //web3.eth.accounts[0]
-  web3.eth.getBalance(address, (error, balance) => {
-    console.log(web3.fromWei(balance.toString(10)));
-  });
+var updateBalance = function(balance) {
+  $('#userBalance').text(balance);
+  $('#userBalance').parent().removeClass('hide');
 }
 
 window.sendTransaction = function (from, to, value) {
@@ -101,12 +98,6 @@ window.voteForCandidate = function (candidate) {
 }
 
 $(document).ready(function () {
-
-  var publicKey = localStorage.getItem("publicKey");
-  if (publicKey != null) {
-    getqr(publicKey);
-  }
-
   if (typeof web3 !== 'undefined') {
     console.warn("Using web3 detected from external source like Metamask")
     // Use Mist/MetaMask's provider
@@ -117,15 +108,22 @@ $(document).ready(function () {
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
 
-  Loyalty.setProvider(web3.currentProvider);
-  // Loyalty.deployed().then(function (contractInstance) {
+  
 
+  Loyalty.setProvider(web3.currentProvider);
+  Loyalty.deployed().then(function (instance) {
+    instance.balanceOf.call(CONFIG.userAddress)
+    .then((rs) => {
+      console.log(rs);
+      updateBalance(rs.toString());
+    });
   //     var address = localStorage.getItem("publicKey");
   //       contractInstance.balanceOf.call(address).then(function (v) {
   //         console.log(v.toString());
 
   //       });
-  // })
+  })
 
+  displayAddress(CONFIG.userAddress);
 
 });
