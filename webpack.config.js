@@ -15,7 +15,8 @@ module.exports = {
       { from: './app/redeem.html', to: "redeem.html" },
       { from: './app/4.html', to: "4.html" },
       { from: './app/5.html', to: "5.html" },
-      { from: './app/6.html', to: "6.html" }
+      { from: './app/6.html', to: "6.html" },
+      { from: './app/home.html', to: "home.html" }
     ])
   ],
   module: {
