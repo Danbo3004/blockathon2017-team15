@@ -16,7 +16,8 @@ module.exports = {
       { from: './app/earn-success.html', to: "earn-success.html" },
       { from: './app/earn-cashier-review.html', to: "earn-cashier-review.html" },
       { from: './app/redeem.html', to: "redeem.html" },
-      { from: './app/redeem-success.html', to: "redeem-success.html" }
+      { from: './app/redeem-success.html', to: "redeem-success.html" },
+      { from: './app/redeem-user-review.html', to: "redeem-user-review.html" }
     ])
   ],
   module: {

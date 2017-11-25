@@ -31,8 +31,8 @@ contract Loyalty {
     }
 
     function addRetailer(address _retailerAddress) onlyOwner(msg.sender) public returns (bool) {
-        //_retailerAddress ko hop le
-        if (_retailerAddress == address(0)) {
+        //_retailerAddress ko hop le hoac _retailerAddress trung voi owner address
+        if (_retailerAddress == address(0) || _retailerAddress == owner) {
             return false;
         }
         // add retailer to white list
@@ -56,42 +56,31 @@ contract Loyalty {
         balances[_addr] = safeAdd(balances[_addr], _numToken);
         // luu thong tin mua hang - user address (optional)
         
-        // Emit event
-        Transfer(0x0, msg.sender, _numToken);
+        return true;
+    }
+    
+    /**
+    * Supply them token cho retailer de dam bao retailer ko bi run out of token
+     */
+    function supplyToken(address _retailerAddress, uint256 _numToken) onlyOwner(msg.sender) onlyRetailer(_retailerAddress) public returns (bool) {
+        // cong token cho _retailerAddress
+        balances[_retailerAddress] = safeAdd(balances[_retailerAddress], _numToken);
+        // tang totalSupply
+        totalSupply = safeAdd(totalSupply, _numToken);
 
         return true;
     }
 
-    function transferToken(address _fromAddr, address _toAddr, uint256 _numToken) public returns (bool) {
-        _fromAddr = msg.sender;
-        if (balances[_fromAddr] < _numToken) {
-            return false;
-        }
-        // tru token trong tai khoan Sender
-        balances[_fromAddr] = safeSub(balances[_fromAddr], _numToken);
-        // cong token cho Receiver
-        balances[_toAddr] = safeAdd(balances[_toAddr], _numToken);
-        // luu thong tin mua hang - user address (optional)
-        
-        // Emit event
-        Transfer(0x0, _fromAddr, balances[_fromAddr]);
-         Transfer(0x0, _toAddr, balances[_toAddr]);
-
-        return true;
-    }
-
-    //Redeem token
-    function redeemToken(address _addr, uint256 _numToken) onlyRetailer(msg.sender) public returns(bool) {
-        if (balances[_addr] < _numToken) {
+    //Redeem with token
+    function redeemToken(address _retailerAddress, uint256 _numToken) onlyRetailer(_retailerAddress) public returns(bool) {
+        address user = msg.sender;
+        if (balances[user] < _numToken) {
             return false;
         } 
 
-        balances[msg.sender] = safeAdd(balances[msg.sender], _numToken);
-        balances[_addr] = safeSub(balances[_addr], _numToken);
-
-        Transfer(0x0, _addr, balances[_addr]);
-        Transfer(0x0, msg.sender, balances[msg.sender]);
-        // store info about this redeem
+        balances[user] = safeSub(balances[user], _numToken);
+        balances[_retailerAddress] = safeAdd(balances[_retailerAddress], _numToken);
+        // TODO: store info about this redeem 
 
         return true;
     }

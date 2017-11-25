@@ -12,7 +12,6 @@ contract('Loyalty', function (accounts) {
                 .then((rs) => {
                     return instance.balanceOf.call(retailer1)
                         .then((rs) => {
-                            console.log(rs);
                             assert.equal(rs.toString(10), '1000000');
                             return instance.isAllowedRetailer.call(retailer1);
                         })
@@ -39,18 +38,26 @@ contract('Loyalty', function (accounts) {
                             assert.equal(rs.toString(10), '100');
 
                             // user redeem goods
-                            return instance.redeemToken.call(user1, 50, {from: retailer1})
+                            return instance.redeemToken(retailer1, 50, {from: user1})
                         })
                         .then((rs) => {
-                            assert.equal(rs, true);
                             return instance.balanceOf.call(user1)
                         })
                         .then((rs) => {
+                            // check balance cua user bi tru so token tuong ung
                             assert.equal(rs.toString(10), '50');
+                            
+                            return instance.supplyToken(retailer1, 1000000)
+                        })
+                        .then((rs) => {
+                            return instance.balanceOf.call(retailer1)
+                        })
+                        .then((rs) => {
+                            assert.equal(rs.toString(10), '1999950');
                         })
                 });
             
-                // sender != owner khong the addRetailer
+            // sender != owner khong the addRetailer
             instance.addRetailer(retailer2, { from: accounts[3] })
                 .then(() => {
                     return instance.balanceOf.call(retailer2)

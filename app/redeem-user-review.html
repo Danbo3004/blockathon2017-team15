@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Congrat!</title>
+    <title>Review your redemption</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
-
 </head>
 
 <body>
@@ -27,7 +26,7 @@
         <div class="row main-container transaction-preview">
             <div class="col-xs-12 text-center">
                 <span class="congrat-brand-name">
-                     PizzaHut
+                    PizzaHut
                 </span>
             </div>
             <div class="col-xs-12 mt20">
@@ -38,17 +37,23 @@
             <div class="col-xs-12 mt20">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 &nbsp;Total:
-                <span class="pull-right">$40</span>
+                <span class="pull-right">$100</span>
+            </div>
+            <div class="col-xs-12 mt20">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                &nbsp;You will use:
+                <span class="pull-right">40 EBT</span>
+            </div>
+            <div class="col-xs-12 mt20">
+                <i class="fa fa-money" aria-hidden="true"></i>
+                &nbsp;Need to pay:
+                <span class="pull-right">$60</span>
             </div>
             <div class="clearfix"></div>
             <hr class="divider small">
-            <div class="congrat-message text-center">
-                Congrats! You've earned <br>
-                <div class="ebt-earned">40 EBT</span>
-            </div>
             <div class="action-container">
                 <div class="col-xs-8 col-xs-offset-2">
-                    <a href="javascript:;" class="btn btn-info btn-block">Done</a>
+                    <a href="javascript:;" class="btn btn-info btn-block" onclick="return confirmRedeem();">Confirm</a>
                 </div>
             </div>
         </div>
