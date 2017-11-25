@@ -5,8 +5,11 @@
   "scripts": {
     "lint": "eslint ./",
     "build": "webpack",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "start": "webpack-dev-server --hot"
+    
   },
+  "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",  
   "author": "Douglas von Kohorn",
   "license": "MIT",
   "devDependencies": {
