@@ -8,10 +8,11 @@ contract('Loyalty', function (accounts) {
         const user2 = accounts[4];
         return Loyalty.deployed().then(function (instance) {
             // add new retailer and issue 1000000 tokens
-            instance.addRetailer(retailer1, { from: accounts[0] })
-                .then(() => {
+            instance.addRetailer(retailer1)
+                .then((rs) => {
                     return instance.balanceOf.call(retailer1)
                         .then((rs) => {
+                            console.log(rs);
                             assert.equal(rs.toString(10), '1000000');
                             return instance.isAllowedRetailer.call(retailer1);
                         })

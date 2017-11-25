@@ -1,8 +1,7 @@
 // Import the page's CSS. Webpack will know what to do with it.
 import "../css/app.css";
 import "./auth.js";
-import CONFIG from "./config.js";
-
+window.CONFIG = {};
 // Import libraries we need.
 import { default as Web3 } from 'web3';
 import { default as contract } from 'truffle-contract'
@@ -83,13 +82,12 @@ window.sendRawTransaction = function (_from, privateKey, _to, value) {
   })
 }
 
-window.cashierConfirmReward = function () {
-
+window.rewardToken = function () {
   try {
-    Loyalty.deployed().then(function (contractInstance) {
-      //  /web3.personal.unlockAccount(CONFIG.cashierAddress, CONFIG.cashierPrivateKey,1500);
-      contractInstance.rewardToken(CONFIG.userAddress, 40, { gas: 140000, from: CONFIG.cashierAddress }).then(function () {
+    Loyalty.deployed().then(function (instance) {
+      instance.rewardToken(CONFIG.userAddress, 40, {from: CONFIG.retailerAddress }).then(function (rs) {
         console.log('callbackReward');
+        console.log(rs);
       });
     });
   } catch (err) {
@@ -97,23 +95,20 @@ window.cashierConfirmReward = function () {
   }
 }
 
-window.addCashier = function () {
+window.addRetailer = function () {
   try {
-    Loyalty.deployed().then(function (contractInstance) {
-      //  /web3.personal.unlockAccount(CONFIG.cashierAddress, CONFIG.cashierPrivateKey,1500);
-      contractInstance.addRetailer.call(CONFIG.cashierAddress,{ gas: 140000, from: CONFIG.ownerAddress}).then(function (v) {
-        console.log('callbackAddCashier');
-        console.log(v);
+    Loyalty.deployed().then(function (instance) {
+      //  /web3.personal.unlockAccount(CONFIG.retailerAddress, CONFIG.cashierPrivateKey,1500);
+      instance.addRetailer(CONFIG.retailerAddress,{ gas: 140000, from: CONFIG.ownerAddress}).then(function (rs) {
+        console.log(rs);
       });
     });
   } catch (err) {
     console.log(err);
   }
 }
-
 
 window.getBalanceToken = function (_address) {
-
   Loyalty.deployed().then(function (instance) {
     instance.balanceOf.call(_address)
       .then((rs) => {
@@ -122,7 +117,6 @@ window.getBalanceToken = function (_address) {
         console.log('value balance :'+ rs.toString());
       });
   })
-
 }
 
 
@@ -136,18 +130,23 @@ $(document).ready(function () {
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
+  web3.eth.getAccounts((error, accounts) => {
+    console.log(accounts);
+    CONFIG.ownerAddress = accounts[0];
+    CONFIG.retailerAddress = accounts[1];
+    CONFIG.userAddress = accounts[2];
+    console.log(CONFIG);
 
+    Loyalty.setProvider(web3.currentProvider);
+    Loyalty.deployed().then(function (instance) {
+      instance.balanceOf.call(CONFIG.userAddress)
+        .then((rs) => {
+          updateBalance(rs.toString());
+          console.log('update balance :' + rs.toString());
+        });
+    })
 
-
-  Loyalty.setProvider(web3.currentProvider);
-  Loyalty.deployed().then(function (instance) {
-    instance.balanceOf.call(CONFIG.userAddress)
-      .then((rs) => {
-        updateBalance(rs.toString());
-        console.log('update balance :'+ rs.toString());
-      });
-  })
-
-  displayAddress(CONFIG.userAddress);
+    displayAddress(CONFIG.userAddress);
+  });
 
 });
