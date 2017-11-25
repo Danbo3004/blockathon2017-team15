@@ -30,13 +30,19 @@ window.createNewAccount = function () {
   var wallet = Wallet.generate();
   console.log('0x' + wallet.getPrivateKey().toString('hex'));
   console.log('0x' + wallet.getAddress().toString('hex'));
-  $('#publicKey').val(wallet.getAddress().toString('hex'));
-  $('#privateKey').val(wallet.getPrivateKey().toString('hex'));
- 
+  //$('#publicKey').val(wallet.getAddress().toString('hex'));
+  //$('#privateKey').val(wallet.getPrivateKey().toString('hex'));
+
   localStorage.setItem("publicKey", wallet.getAddress().toString('hex'));
   localStorage.setItem("privateKey", wallet.getPrivateKey().toString('hex'));
 }
 
+window.getBalance = function (address) {
+  //web3.eth.accounts[0]
+  web3.eth.getBalance(address, (error, balance) => {
+    console.log(web3.fromWei(balance.toString(10)));
+  });
+}
 
 
 window.sendTransaction = function (from, to, value) {
@@ -53,7 +59,10 @@ window.sendTransaction = function (from, to, value) {
 }
 
 window.sendRawTransaction = function (_from, privateKey, _to, value) {
+
   web3.eth.getTransactionCount(_from, (error, txCount) => {
+    //txCount = txCount +1;
+    console.log('txcount:' + txCount);
     let privKey = new Buffer(privateKey, 'hex')
     let rawTransactionObj = {
       nonce: web3.toHex(txCount),
@@ -66,10 +75,56 @@ window.sendRawTransaction = function (_from, privateKey, _to, value) {
     tx.sign(privKey)
     let serializeTx = '0x' + tx.serialize().toString('hex')
     web3.eth.sendRawTransaction(serializeTx, (error, txHash) => {
-      console.log(txHash)
+      console.log("transaction hash -> :");
+      console.log(txHash);
+      console.log("transaction error -> :");
+      console.log(error);
     })
   })
 }
+
+window.cashierConfirmReward = function () {
+
+  try {
+    Loyalty.deployed().then(function (contractInstance) {
+      //  /web3.personal.unlockAccount(CONFIG.cashierAddress, CONFIG.cashierPrivateKey,1500);
+      contractInstance.rewardToken(CONFIG.userAddress, 40, { gas: 140000, from: CONFIG.cashierAddress }).then(function () {
+        console.log('callbackReward');
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+window.addCashier = function () {
+  try {
+    Loyalty.deployed().then(function (contractInstance) {
+      //  /web3.personal.unlockAccount(CONFIG.cashierAddress, CONFIG.cashierPrivateKey,1500);
+      contractInstance.addRetailer.call(CONFIG.cashierAddress,{ gas: 140000, from: CONFIG.ownerAddress}).then(function (v) {
+        console.log('callbackAddCashier');
+        console.log(v);
+      });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+window.getBalanceToken = function (_address) {
+
+  Loyalty.deployed().then(function (instance) {
+    instance.balanceOf.call(_address)
+      .then((rs) => {
+        console.log(rs);
+        updateBalance(rs.toString());
+        console.log('value balance :'+ rs.toString());
+      });
+  })
+
+}
+
 
 $(document).ready(function () {
   if (typeof web3 !== 'undefined') {
@@ -82,14 +137,15 @@ $(document).ready(function () {
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
 
-  
+
 
   Loyalty.setProvider(web3.currentProvider);
   Loyalty.deployed().then(function (instance) {
     instance.balanceOf.call(CONFIG.userAddress)
-    .then((rs) => {
-      updateBalance(rs.toString());
-    });
+      .then((rs) => {
+        updateBalance(rs.toString());
+        console.log('update balance :'+ rs.toString());
+      });
   })
 
   displayAddress(CONFIG.userAddress);
