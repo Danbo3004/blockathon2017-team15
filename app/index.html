@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Hello World DApp</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body class="container">
+  <h1>8bitchain - loyaty</h1>
+<br/>
+<br/>
+<br/>
+  <div class="row" id='qrcodepage' style="display:none">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Địa chỉ ví</label>
+        <div class="col-sm-10">
+          <input type="text" id="publicKey" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">Khoá</label>
+        <div class="col-sm-10">
+          <input type="text" id="privateKey" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button onclick="createNewAccount()" class="btn btn-primary">Transfer cash</button>
+        </div>
+      </div>
+
+      <div id='address_image' style="width:300px;"></div>
+    </div>
+
+
+    <div id="address"></div>
+  </div>
+
+
+  <div class="row" id='loginpage'>
+    Balance : <span id='mybalance'></span>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="button" onclick="login()" class="btn btn-default">Login</button>
+  </form>
+</div>
+
+
+
+
+</body>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+<script src="app.js"></script>
+
+</html>
