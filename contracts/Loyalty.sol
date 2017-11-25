@@ -24,7 +24,7 @@ contract Loyalty {
 
     // check owner permission
     modifier onlyRetailer(address _addr) {
-        require(_addr == owner);
+        require(retailers[_addr] = true);
         _;
     }
 
@@ -41,37 +41,21 @@ contract Loyalty {
         totalSupply += initialToken;
     }
 
-    // function rewardToken(address _addr, uint8 _numToken) onlyRetailer(msg.sender) public 
-    //     // check tai khoan gui co trong danh sach allowed chua
-    //     // check balance cua tai khoan gui
-    //     // tru token trong tai khoan retailer
-    //     // cong token cho user
-    //     balances[userAddress] += 
-    //     // luu thong tin mua hang - user address
-
-    //     // Calculate amount of token
-    //     uint256 amount = msg.value * price / 1 ether;
-    //     if (amount > availableNumber) {
-    //         amount = availableNumber;
-    //     } 
-
-    //     // Check amount > 0
-    //     require(amount > 0);
-
-    //     // Change token balance
-    //     balances[msg.sender] += amount;
-    //     availableNumber -= amount;
-
-    //     // Refund eth
-    //     uint cost = amount*1 ether/price;
-    //     msg.sender.transfer(msg.value - cost);
-
-    //     // Transfer eth to admin
-    //     admin.transfer(cost);
-
-    //     // Emit event
-    //     Transfer(0x0, msg.sender, amount);
-    // }
+    function rewardToken(address _addr, uint8 _numToken) onlyRetailer(msg.sender) payable public {
+        // check tai khoan gui co trong danh sach allowed chua
+        // check balance cua tai khoan gui
+        if (balances[msg.sender] < _numToken) {
+            return;
+        }
+        // tru token trong tai khoan retailer
+        balances[msg.sender] -= _numToken;
+        // cong token cho user
+        balances[_addr] += _numToken;
+        // luu thong tin mua hang - user address
+        
+        // Emit event
+        // Transfer(0x0, msg.sender, amount);
+    }
 
     // Constant function that return token balance of an address
     function balanceOf(address _addr) public constant returns (uint256) {
