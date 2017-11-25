@@ -22,17 +22,17 @@ h1, h2 {
   vertical-align: middle;
   margin-top: 0px;
   margin-bottom: 10px;
+  font-size: 25px;
 }
 
 h2 {
   color: #AAA;
-  font-size: 32px;
 }
 
 h3 {
   font-weight: normal;
   color: #AAA;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .black {
@@ -53,7 +53,7 @@ h3 {
 }
 
 #footer {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 #logo {
   padding-top: 55px;
@@ -68,13 +68,14 @@ h3 {
   word-wrap: break-word;
 }
 
-#qrcodepage {
+.main-container, #qrcodepage {
   padding: 20px 20px;
   border: 1px solid #000;
+  font-size: 1.67rem;
 }
 
 .qrcode-desc {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
 }
@@ -92,7 +93,43 @@ h3 {
 
 .header-icon {
   position: absolute;
-  top: 16px;
+  top: 11px;
   left: 10px;
   font-size: 26px;
+}
+
+.divider {
+  margin: 30px 20px 70px 20px;
+  height: 1px;
+  background: #000;
+}
+.divider.small {
+  margin-bottom: 25px;
+}
+.mt20 {
+  margin-top: 20px;
+}
+
+.action-container {
+  padding-bottom: 30px;
+}
+
+.action-container .btn {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  background-color: #1f75b8
+}
+
+.congrat-brand-name {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.congrat-message .ebt-earned, .congrat-message {
+  font-size: 1.85rem;
+  color: #067f2d;
+}
+.congrat-message div.ebt-earned {
+  margin: 10px 0 20px 0;
+  font-size: 4.5rem;
 }
