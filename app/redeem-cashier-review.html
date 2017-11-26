@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Congrat!</title>
+    <title>Cashier preview</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
-
+     
 </head>
 
 <body>
@@ -17,38 +17,34 @@
         <a href="./home.html">
             <i class="fa fa-arrow-left header-icon" aria-hidden="true"></i>
         </a>
-        <h1>Jon
-            <span class="pull-right hide">
-                <span id="userBalance"></span> EBT
-            </span>
-        </h1>
+        <h1>PizzaHut</h1>
     </div>
     <div class="container" id="content">
         <div class="row main-container transaction-preview">
-            <div class="col-xs-12 text-center">
-                <span class="congrat-brand-name">
-                     PizzaHut
-                </span>
-            </div>
             <div class="col-xs-12 mt20">
                 <i class="fa fa-hashtag" aria-hidden="true"></i>
                 &nbsp;Order No.:
-                <span class="pull-right">65562</span>
+                <span class="pull-right">#555</span>
             </div>
             <div class="col-xs-12 mt20">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                &nbsp;Total:
-                <span class="pull-right">$40</span>
+                 &nbsp;Total: <span class="pull-right">$40</span>
+            </div>
+            <div class="col-xs-12 mt20">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                 &nbsp;<span class="username">John</span> will used:
+                <span class="pull-right">10 EBT</span>
+            </div>
+            <div class="col-xs-12 mt20">
+                <i class="glyphicon glyphicon-usd" ></i>
+                 &nbsp;<span class="username">John</span> need to pay:
+                <span class="pull-right">30 $</span>
             </div>
             <div class="clearfix"></div>
-            <hr class="divider small">
-            <div class="congrat-message text-center">
-                Congrats! You've earned <br>
-                <div class="ebt-earned">40 EBT</span>
-            </div>
+            <hr class="divider">
             <div class="action-container">
                 <div class="col-xs-8 col-xs-offset-2">
-                    <a href="javascript:;" class="btn btn-info btn-block">Done</a>
+                    <a href="javascript:;" class="btn btn-info btn-block" onclick="return rewardToken();">Confirm</a>
                 </div>
             </div>
         </div>
