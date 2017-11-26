@@ -102,7 +102,6 @@ window.rewardToken = function () {
 window.addRetailer = function () {
   try {
     Loyalty.deployed().then(function (instance) {
-      //  /web3.personal.unlockAccount(CONFIG.retailerAddress, CONFIG.cashierPrivateKey,1500);
       instance.addRetailer(CONFIG.retailerAddress,{ gas: 140000, from: CONFIG.ownerAddress}).then(function (rs) {
         console.log(rs);
       });

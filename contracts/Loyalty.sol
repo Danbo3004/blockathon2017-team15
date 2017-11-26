@@ -32,7 +32,7 @@ contract Loyalty {
 
     function addRetailer(address _retailerAddress) onlyOwner(msg.sender) public returns (bool) {
         //_retailerAddress ko hop le hoac _retailerAddress trung voi owner address
-        if (_retailerAddress == address(0) || _retailerAddress == owner) {
+        if (_retailerAddress == address(0) || _retailerAddress == owner || retailers[_retailerAddress]) {
             return false;
         }
         // add retailer to white list
